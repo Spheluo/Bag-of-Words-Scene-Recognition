@@ -1,5 +1,5 @@
 # Bag-of-Words-Scene-Recognition
-##implementation of Bag of Words (BoW) Scene Recognition
+## implementation of Bag of Words (BoW) Scene Recognition
 
 ### you can get the training and testing set from [here](https://drive.google.com/file/d/1ycutiD0rsnnefWlEgs0u0KmW2uXXXTKE/view?usp=share_link).
 
