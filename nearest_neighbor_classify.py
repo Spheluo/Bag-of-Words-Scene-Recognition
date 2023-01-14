@@ -40,25 +40,14 @@ def nearest_neighbor_classify(train_image_feats, train_labels, test_image_feats)
     CATEGORIES = ['Kitchen', 'Store', 'Bedroom', 'LivingRoom', 'Office',
               'Industrial', 'Suburb', 'InsideCity', 'TallBuilding', 'Street',
               'Highway', 'OpenCountry', 'Coast', 'Mountain', 'Forest']
-    K = 6
-    
-    N = train_image_feats.shape[0]
-    M = test_image_feats.shape[0]
-    d = train_image_feats.shape[1]
+    K = 7
     
     # calculate the distance between each test image and training images
     dists = distance.cdist(test_image_feats, train_image_feats, metric='cityblock')
-    test_predicts = []
-    # iterate through distances of each test image
-    for dist in dists:
-        # find the indices that would sort an array.
-        idx = np.argsort(dist)
-        # find K labels which are closest to the test image
-        label = [train_labels[idx[i]] for i in range(K)]
-        # the label occurs most times
-        label_final = Counter(label).most_common(1)[0][0]
-        # then that is the predicted label of test sets
-        test_predicts.append(label_final)
+    # find K nearest training labels for each test image
+    k_nearest_labels = np.array(train_labels)[np.argsort(dists)[:,:K]]
+    # most common label wins !
+    test_predicts = mode(k_nearest_labels,axis=1).mode.ravel()
     #############################################################################
     #                                END OF YOUR CODE                           #
     #############################################################################
